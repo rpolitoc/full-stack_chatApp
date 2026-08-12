@@ -76,6 +76,26 @@ NODE_ENV=production
 > - For local development without Docker, change `MONGODB_URI` to `mongodb://localhost:27017/chatApp`
 > - You can use command ```echo "Text what you want" | base64
 
+### 🩺 Health Check
+
+The backend exposes a health check endpoint for monitoring and container orchestration probes:
+
+**`GET /health`**
+
+Returns the current status of the server and its database connection.
+
+```json
+{
+  "status": "healthy",
+  "timestamp": "2026-08-12T16:30:00.000Z",
+  "database": "connected",
+  "environment": "production",
+  "uptime": "1h 2m 3s"
+}
+```
+
+If the database is unreachable, the endpoint returns a `503` status with an `unhealthy` payload instead.
+
 ### Clone the Repository
 
 ```bash
