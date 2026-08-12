@@ -96,6 +96,8 @@ Returns the current status of the server and its database connection.
 
 If the database is unreachable, the endpoint returns a `503` status with an `unhealthy` payload instead.
 
+Used by Kubernetes liveness and readiness probes to determine pod health.
+
 ### Clone the Repository
 
 ```bash
