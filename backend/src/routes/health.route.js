@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import { formatUptime } from "../lib/formatUptime.js";
 
 const router = express.Router();
 
@@ -8,12 +9,13 @@ router.get("/", async (req, res) => {
   try {
     // Check database connection
     const dbStatus = mongoose.connection.readyState === 1 ? "connected" : "disconnected";
-    
+
     res.status(200).json({
       status: "healthy",
       timestamp: new Date().toISOString(),
       database: dbStatus,
-      environment: process.env.NODE_ENV || "development"
+      environment: process.env.NODE_ENV || "development",
+      uptime: formatUptime(process.uptime())
     });
   } catch (error) {
     res.status(503).json({
@@ -24,4 +26,4 @@ router.get("/", async (req, res) => {
   }
 });
 
-export default router; 
+export default router;
