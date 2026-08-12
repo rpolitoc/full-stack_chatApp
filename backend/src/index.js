@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import { ALLOWED_ORIGINS } from "./lib/constants.js";
 
 import path from "path";
 
@@ -22,9 +23,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.NODE_ENV === "production" 
-      ? ["http://localhost:8080", "http://localhost"] 
-      : "http://localhost:5173",
+    origin: process.env.NODE_ENV === "production"
+      ? ALLOWED_ORIGINS.production
+      : ALLOWED_ORIGINS.development,
     credentials: true,
   })
 );
